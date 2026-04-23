@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>For Khánh Hà ❤️</title>
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at top, #431021 0%, #1b0610 45%, #090205 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .stars, .hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      animation: twinkle 3s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.75); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+    .floating-heart {
+      position: absolute;
+      bottom: -30px;
+      font-size: 18px;
+      animation: floatUp linear forwards;
+      opacity: 0.9;
+      will-change: transform, opacity;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.85); opacity: 0; }
+      12% { opacity: 0.95; }
+      100% { transform: translateY(-120vh) scale(1.35); opacity: 0; }
+    }
+    .card {
+      width: min(94vw, 760px);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 24px 18px 28px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .small {
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffd7e1;
+      font-size: 11px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(30px, 6vw, 54px);
+      line-height: 1.08;
+    }
+    .name {
+      color: #ff9db6;
+      text-shadow: 0 0 16px rgba(255, 120, 170, 0.34);
+    }
+    .subline {
+      font-size: clamp(14px, 3.6vw, 18px);
+      color: #ffe6ed;
+      opacity: 0.92;
+      margin-bottom: 14px;
+    }
+    .message-box {
+      min-height: 110px;
+      margin: 16px auto 18px;
+      max-width: 600px;
+      font-size: clamp(18px, 4.4vw, 24px);
+      line-height: 1.7;
+      color: #fff5f8;
+      white-space: pre-line;
+      padding: 0 4px;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .heart-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0 12px;
+    }
+    .heart {
+      position: relative;
+      width: 110px;
+      height: 100px;
+      transform: rotate(-45deg);
+      background: linear-gradient(135deg, #ff3366, #ff7aa8);
+      animation: heartbeat 1.15s infinite;
+      box-shadow: 0 0 32px rgba(255, 82, 136, 0.45);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 110px;
+      height: 100px;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .heart::before { top: -50px; left: 0; }
+    .heart::after { left: 55px; top: 0; }
+    @keyframes heartbeat {
+      0%, 100% { transform: rotate(-45deg) scale(1); }
+      25% { transform: rotate(-45deg) scale(1.08); }
+      50% { transform: rotate(-45deg) scale(0.98); }
+      75% { transform: rotate(-45deg) scale(1.12); }
+    }
+    .hint {
+      font-size: 13px;
+      color: #ffd0dd;
+      margin-top: 2px;
+      margin-bottom: 8px;
+    }
+    .btns {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 14px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    button {
+      border: none;
+      border-radius: 999px;
+      min-height: 50px;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.2s ease, opacity 0.2s ease;
+      touch-action: manipulation;
+    }
+    button:active { transform: scale(0.98); }
+    .primary {
+      background: linear-gradient(135deg, #ff4d88, #ff7aa8);
+      color: white;
+      box-shadow: 0 10px 24px rgba(255, 88, 140, 0.28);
+    }
+    .secondary {
+      background: rgba(255,255,255,0.13);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .footer {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #ffd0dd;
+      opacity: 0.95;
+      line-height: 1.5;
+    }
+    .music-note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #ffe0e8;
+      opacity: 0.85;
+    }
+    .popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 2, 5, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 20;
+    }
+    .popup.show { display: flex; }
+    .popup-card {
+      width: min(92vw, 480px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.08));
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 28px;
+      padding: 28px 18px 24px;
+      text-align: center;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+      animation: popIn 0.28s ease;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.92) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .popup-big {
+      font-size: clamp(30px, 8vw, 54px);
+      margin-bottom: 10px;
+    }
+    .popup-title {
+      font-size: clamp(24px, 6vw, 36px);
+      margin: 0 0 10px;
+      color: #ffb7ca;
+    }
+    .popup-text {
+      font-size: clamp(17px, 4.2vw, 22px);
+      line-height: 1.65;
+      color: #fff3f7;
+      margin-bottom: 18px;
+      white-space: pre-line;
+    }
+    .close-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #ff4d88, #ff7aa8);
+      color: white;
+      box-shadow: 0 10px 24px rgba(255, 88, 140, 0.26);
+    }
+    @media (min-width: 640px) {
+      .btns { grid-template-columns: 1fr 1fr; }
+      .btns button:first-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 540px) {
+      body { padding: 12px; }
+      .card { border-radius: 24px; padding: 22px 14px 24px; }
+      .heart { width: 90px; height: 82px; }
+      .heart::before, .heart::after { width: 90px; height: 82px; }
+      .heart::before { top: -41px; }
+      .heart::after { left: 45px; top: 0; }
+      .message-box { min-height: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <div class="card">
+    <div class="small">A little surprise</div>
+    <h1>For <span class="name" id="nameTarget">Khánh Hà</span> ❤️</h1>
+    <div class="subline">A tiny romantic page made just for you</div>
+
+    <div class="heart-wrap">
+      <div class="heart" id="mainHeart" title="Tap me"></div>
+    </div>
+    <div class="hint">Tap the heart ❤️</div>
+
+    <div class="message-box">
+      <span id="typed"></span><span class="cursor">|</span>
+    </div>
+
+    <div class="btns">
+      <button class="primary" id="replayBtn">Replay Message</button>
+      <button class="secondary" id="secretBtn">Open My Heart</button>
+      <button class="secondary" id="musicBtn">Play Romantic Music</button>
+      <button class="secondary" id="loveBtn">Send More Love</button>
+    </div>
+
+    <div class="footer">
+      Made with love, just for <span id="footerName">Khánh Hà</span> ✨
+      <div class="music-note">If the music button does not work at first, tap it once again. Some phones need a user tap to allow sound.</div>
+    </div>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="popup-card">
+      <div class="popup-big">💖</div>
+      <h2 class="popup-title">My Heart for <span id="popupName">Khánh Hà</span></h2>
+      <div class="popup-text" id="popupText">You make my world softer,
+warmer,
+and more beautiful every day.
+
+No matter how small this gift is,
+it carries a very real feeling from me to you. ❤️</div>
+      <button class="close-btn" id="closePopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const girlName = "Khánh Hà";
+    const lines = [
+      `Hi ${girlName}...`,
+      "I made this little surprise for you.",
+      "Every beat of this heart says one thing...",
+      "You are special to me. ❤️"
+    ];
+
+    const typed = document.getElementById("typed");
+    const popup = document.getElementById("popup");
+    const heart = document.getElementById("mainHeart");
+    const heartsBg = document.getElementById("heartsBg");
+    const stars = document.getElementById("stars");
+    const musicBtn = document.getElementById("musicBtn");
+
+    document.getElementById("nameTarget").textContent = girlName;
+    document.getElementById("footerName").textContent = girlName;
+    document.getElementById("popupName").textContent = girlName;
+
+    function createStars() {
+      for (let i = 0; i < 55; i++) {
+        const s = document.createElement("div");
+        s.className = "star";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.top = Math.random() * 100 + "vh";
+        s.style.animationDelay = (Math.random() * 3) + "s";
+        s.style.opacity = (0.35 + Math.random() * 0.65).toFixed(2);
+        stars.appendChild(s);
+      }
+    }
+
+    function popHeart(x = null, y = null) {
+      const h = document.createElement("div");
+      h.className = "floating-heart";
+      h.textContent = ["💖","❤️","💕","💘","💗"][Math.floor(Math.random()*5)];
+      h.style.left = (x !== null ? x : Math.random() * window.innerWidth) + "px";
+      h.style.bottom = (y !== null ? (window.innerHeight - y) : -20) + "px";
+      h.style.fontSize = (18 + Math.random() * 20) + "px";
+      h.style.animationDuration = (3 + Math.random() * 2.8) + "s";
+      heartsBg.appendChild(h);
+      setTimeout(() => h.remove(), 6200);
+    }
+
+    function shower(count = 18) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => popHeart(), i * 110);
+      }
+    }
+
+    async function typeLines() {
+      typed.textContent = "";
+      for (let idx = 0; idx < lines.length; idx++) {
+        await typeText(lines[idx]);
+        if (idx < lines.length - 1) typed.textContent += "\n";
+        await wait(850);
+      }
+    }
+
+    function typeText(text) {
+      return new Promise(resolve => {
+        let i = 0;
+        const timer = setInterval(() => {
+          typed.textContent += text.charAt(i);
+          i++;
+          if (i >= text.length) {
+            clearInterval(timer);
+            resolve();
+          }
+        }, 42);
+      });
+    }
+
+    function wait(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    heart.addEventListener("click", (e) => {
+      shower(24);
+      popHeart(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
+    });
+
+    document.getElementById("replayBtn").addEventListener("click", () => {
+      typeLines();
+      shower(10);
+    });
+
+    document.getElementById("secretBtn").addEventListener("click", () => {
+      popup.classList.add("show");
+      shower(22);
+    });
+
+    document.getElementById("closePopup").addEventListener("click", () => {
+      popup.classList.remove("show");
+    });
+
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) popup.classList.remove("show");
+    });
+
+    document.getElementById("loveBtn").addEventListener("click", () => {
+      shower(30);
+    });
+
+    let audioCtx = null;
+    let playing = false;
+    let nodes = [];
+
+    function stopMusic() {
+      nodes.forEach(n => {
+        try { if (n.stop) n.stop(); } catch (e) {}
+        try { if (n.disconnect) n.disconnect(); } catch (e) {}
+      });
+      nodes = [];
+      playing = false;
+      musicBtn.textContent = "Play Romantic Music";
+    }
+
+    async function playMusic() {
+      if (playing) {
+        stopMusic();
+        return;
+      }
+
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) {
+          alert("This browser does not support audio.");
+          return;
+        }
+        audioCtx = new AudioContextClass();
+      }
+
+      if (audioCtx.state === "suspended") {
+        await audioCtx.resume();
+      }
+
+      const now = audioCtx.currentTime;
+      const master = audioCtx.createGain();
+      master.gain.value = 0.05;
+      master.connect(audioCtx.destination);
+      nodes.push(master);
+
+      const melody = [
+        [523.25, 0.00, 0.45], [659.25, 0.55, 0.45], [783.99, 1.10, 0.55],
+        [659.25, 1.80, 0.45], [698.46, 2.35, 0.45], [783.99, 2.90, 0.70],
+        [659.25, 3.80, 0.45], [587.33, 4.35, 0.45], [523.25, 4.90, 0.80]
+      ];
+
+      const bass = [
+        [261.63, 0.00, 1.00], [329.63, 1.10, 1.00], [392.00, 2.20, 1.20],
+        [329.63, 3.60, 0.90], [293.66, 4.60, 1.10]
+      ];
+
+      function tone(freq, start, duration, type, gainValue) {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.0001, now + start);
+        gain.gain.exponentialRampToValueAtTime(gainValue, now + start + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + start + duration);
+        osc.connect(gain);
+        gain.connect(master);
+        osc.start(now + start);
+        osc.stop(now + start + duration + 0.05);
+        nodes.push(osc, gain);
+      }
+
+      melody.forEach(n => tone(n[0], n[1], n[2], "sine", 0.14));
+      bass.forEach(n => tone(n[0], n[1], n[2], "triangle", 0.08));
+
+      playing = true;
+      musicBtn.textContent = "Stop Music";
+
+      setTimeout(() => {
+        if (playing) stopMusic();
+      }, 6500);
+    }
+
+    musicBtn.addEventListener("click", playMusic);
+
+    document.addEventListener("click", (e) => {
+      if (Math.random() < 0.16 && !popup.classList.contains("show")) {
+        popHeart(e.clientX, e.clientY);
+      }
+    });
+
+    createStars();
+    typeLines();
+    setInterval(() => popHeart(), 1000);
+  </script>
+</body>
+</html>
