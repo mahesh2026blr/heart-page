@@ -9,13 +9,12 @@
     html, body { margin: 0; min-height: 100%; }
     body {
       min-height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       font-family: Arial, Helvetica, sans-serif;
       background: radial-gradient(circle at top, #431021 0%, #1b0610 45%, #090205 100%);
       color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: block;
       padding: 16px;
     }
     .stars, .hearts-bg {
@@ -48,8 +47,15 @@
       12% { opacity: 0.95; }
       100% { transform: translateY(-120vh) scale(1.35); opacity: 0; }
     }
+    .wrap {
+      min-height: calc(100vh - 32px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
     .card {
       width: min(94vw, 760px);
+      margin: 22px auto;
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255,255,255,0.18);
       backdrop-filter: blur(16px);
@@ -84,7 +90,7 @@
       margin-bottom: 14px;
     }
     .message-box {
-      min-height: 110px;
+      min-height: 84px;
       margin: 16px auto 18px;
       max-width: 600px;
       font-size: clamp(18px, 4.4vw, 24px);
@@ -178,12 +184,6 @@
       opacity: 0.95;
       line-height: 1.5;
     }
-    .music-note {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #ffe0e8;
-      opacity: 0.85;
-    }
     .popup {
       position: fixed;
       inset: 0;
@@ -244,7 +244,7 @@
       .heart::before, .heart::after { width: 90px; height: 82px; }
       .heart::before { top: -41px; }
       .heart::after { left: 45px; top: 0; }
-      .message-box { min-height: 120px; }
+      .message-box { min-height: 72px; }
     }
   </style>
 </head>
@@ -252,30 +252,30 @@
   <div class="stars" id="stars"></div>
   <div class="hearts-bg" id="heartsBg"></div>
 
-  <div class="card">
-    <div class="small">A little surprise</div>
-    <h1>For <span class="name" id="nameTarget">Khánh Hà</span> ❤️</h1>
-    <div class="subline">A tiny romantic page made just for you</div>
+  <div class="wrap">
+    <div class="card">
+      <div class="small">A little surprise</div>
+      <h1>For <span class="name" id="nameTarget">Khánh Hà</span> ❤️</h1>
+      <div class="subline">A tiny romantic page made just for you</div>
 
-    <div class="heart-wrap">
-      <div class="heart" id="mainHeart" title="Tap me"></div>
-    </div>
-    <div class="hint">Tap the heart ❤️</div>
+      <div class="heart-wrap">
+        <div class="heart" id="mainHeart" title="Tap me"></div>
+      </div>
+      <div class="hint">Tap the heart ❤️</div>
 
-    <div class="message-box">
-      <span id="typed"></span><span class="cursor">|</span>
-    </div>
+      <div class="message-box">
+        <span id="typed"></span><span class="cursor">|</span>
+      </div>
 
-    <div class="btns">
-      <button class="primary" id="replayBtn">Replay Message</button>
-      <button class="secondary" id="secretBtn">Open My Heart</button>
-      <button class="secondary" id="musicBtn">Play Romantic Music</button>
-      <button class="secondary" id="loveBtn">Send More Love</button>
-    </div>
+      <div class="btns">
+        <button class="primary" id="replayBtn">Replay Message</button>
+        <button class="secondary" id="secretBtn">Open My Heart</button>
+        <button class="secondary" id="loveBtn">Send More Love</button>
+      </div>
 
-    <div class="footer">
-      Made with love, just for <span id="footerName">Khánh Hà</span> ✨
-      <div class="music-note">If the music button does not work at first, tap it once again. Some phones need a user tap to allow sound.</div>
+      <div class="footer">
+        Made with love, just for <span id="footerName">Khánh Hà</span> ✨
+      </div>
     </div>
   </div>
 
@@ -283,7 +283,7 @@
     <div class="popup-card">
       <div class="popup-big">💖</div>
       <h2 class="popup-title">My Heart for <span id="popupName">Khánh Hà</span></h2>
-      <div class="popup-text" id="popupText">You make my world softer,
+      <div class="popup-text">You make my world softer,
 warmer,
 and more beautiful every day.
 
@@ -297,9 +297,7 @@ it carries a very real feeling from me to you. ❤️</div>
     const girlName = "Khánh Hà";
     const lines = [
       `Hi ${girlName}...`,
-      "I made this little surprise for you.",
-      "Every beat of this heart says one thing...",
-      "You are special to me. ❤️"
+      "I made this little surprise for you."
     ];
 
     const typed = document.getElementById("typed");
@@ -307,7 +305,6 @@ it carries a very real feeling from me to you. ❤️</div>
     const heart = document.getElementById("mainHeart");
     const heartsBg = document.getElementById("heartsBg");
     const stars = document.getElementById("stars");
-    const musicBtn = document.getElementById("musicBtn");
 
     document.getElementById("nameTarget").textContent = girlName;
     document.getElementById("footerName").textContent = girlName;
@@ -348,7 +345,7 @@ it carries a very real feeling from me to you. ❤️</div>
       for (let idx = 0; idx < lines.length; idx++) {
         await typeText(lines[idx]);
         if (idx < lines.length - 1) typed.textContent += "\n";
-        await wait(850);
+        await wait(700);
       }
     }
 
@@ -362,7 +359,7 @@ it carries a very real feeling from me to you. ❤️</div>
             clearInterval(timer);
             resolve();
           }
-        }, 42);
+        }, 38);
       });
     }
 
@@ -371,18 +368,18 @@ it carries a very real feeling from me to you. ❤️</div>
     }
 
     heart.addEventListener("click", (e) => {
-      shower(24);
+      shower(20);
       popHeart(e.clientX || window.innerWidth / 2, e.clientY || window.innerHeight / 2);
     });
 
     document.getElementById("replayBtn").addEventListener("click", () => {
       typeLines();
-      shower(10);
+      shower(8);
     });
 
     document.getElementById("secretBtn").addEventListener("click", () => {
       popup.classList.add("show");
-      shower(22);
+      shower(18);
     });
 
     document.getElementById("closePopup").addEventListener("click", () => {
@@ -394,96 +391,18 @@ it carries a very real feeling from me to you. ❤️</div>
     });
 
     document.getElementById("loveBtn").addEventListener("click", () => {
-      shower(30);
+      shower(24);
     });
 
-    let audioCtx = null;
-    let playing = false;
-    let nodes = [];
-
-    function stopMusic() {
-      nodes.forEach(n => {
-        try { if (n.stop) n.stop(); } catch (e) {}
-        try { if (n.disconnect) n.disconnect(); } catch (e) {}
-      });
-      nodes = [];
-      playing = false;
-      musicBtn.textContent = "Play Romantic Music";
-    }
-
-    async function playMusic() {
-      if (playing) {
-        stopMusic();
-        return;
-      }
-
-      if (!audioCtx) {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContextClass) {
-          alert("This browser does not support audio.");
-          return;
-        }
-        audioCtx = new AudioContextClass();
-      }
-
-      if (audioCtx.state === "suspended") {
-        await audioCtx.resume();
-      }
-
-      const now = audioCtx.currentTime;
-      const master = audioCtx.createGain();
-      master.gain.value = 0.05;
-      master.connect(audioCtx.destination);
-      nodes.push(master);
-
-      const melody = [
-        [523.25, 0.00, 0.45], [659.25, 0.55, 0.45], [783.99, 1.10, 0.55],
-        [659.25, 1.80, 0.45], [698.46, 2.35, 0.45], [783.99, 2.90, 0.70],
-        [659.25, 3.80, 0.45], [587.33, 4.35, 0.45], [523.25, 4.90, 0.80]
-      ];
-
-      const bass = [
-        [261.63, 0.00, 1.00], [329.63, 1.10, 1.00], [392.00, 2.20, 1.20],
-        [329.63, 3.60, 0.90], [293.66, 4.60, 1.10]
-      ];
-
-      function tone(freq, start, duration, type, gainValue) {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.value = freq;
-        gain.gain.setValueAtTime(0.0001, now + start);
-        gain.gain.exponentialRampToValueAtTime(gainValue, now + start + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + start + duration);
-        osc.connect(gain);
-        gain.connect(master);
-        osc.start(now + start);
-        osc.stop(now + start + duration + 0.05);
-        nodes.push(osc, gain);
-      }
-
-      melody.forEach(n => tone(n[0], n[1], n[2], "sine", 0.14));
-      bass.forEach(n => tone(n[0], n[1], n[2], "triangle", 0.08));
-
-      playing = true;
-      musicBtn.textContent = "Stop Music";
-
-      setTimeout(() => {
-        if (playing) stopMusic();
-      }, 6500);
-    }
-
-    musicBtn.addEventListener("click", playMusic);
-
     document.addEventListener("click", (e) => {
-      if (Math.random() < 0.16 && !popup.classList.contains("show")) {
+      if (Math.random() < 0.12 && !popup.classList.contains("show")) {
         popHeart(e.clientX, e.clientY);
       }
     });
 
     createStars();
     typeLines();
-    setInterval(() => popHeart(), 1000);
+    setInterval(() => popHeart(), 1300);
   </script>
 </body>
 </html>
